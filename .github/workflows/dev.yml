@@ -4,7 +4,10 @@ on:
   push:
     branches:
       - dev
-
+  workflow_run:
+    workflows: [Build and Deploy Llembed - Dev]
+    types:
+      - completed 
 jobs:
   ssh:
     runs-on: ubuntu-latest
