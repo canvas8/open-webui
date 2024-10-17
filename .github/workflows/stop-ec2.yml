@@ -1,0 +1,22 @@
+name: Stop EC2 Server on Schedule
+
+on:
+  schedule:
+    # Runs every day at 10:00 PM London time
+    - cron: "0 21 * * *" # 21:00 UTC corresponds to 22:00 (10:00 PM) London during daylight saving time (summer)
+
+jobs:
+  stop_ec2:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Stop EC2 Instance
+      run: |
+        INSTANCE_ID="i-06aafe0ff7e642270" # Replace with your EC2 instance ID
+        aws ec2 stop-instances --instance-ids $INSTANCE_ID
+        echo "EC2 instance $INSTANCE_ID stopped successfully."
+        
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}  # Set your AWS credentials as secrets in GitHub
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        AWS_DEFAULT_REGION: "eu-west-2"  # Set your AWS region, e.g., "us-west-2"
