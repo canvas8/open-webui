@@ -3,9 +3,9 @@ name: SSH to EC2
 on:
   push:
     branches:
-      - dev
+      - devs
   workflow_run:
-    workflows: [Build and Deploy Llembed - Dev]
+    workflows: [Create and publish Docker images with specific build args]
     types:
       - completed 
 jobs:
